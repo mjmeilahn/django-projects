@@ -7,19 +7,60 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     </head>
     <body>
-        <h1>Password Generator</h1>
+        <div class="container text-center">
+            <h1>Password Generator</h1>
 
-        <form action="{% url 'password' %}">
-            <select name="length">
-                <option disabled value="Choose Length">Choose Length</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-            </select>
+            <form action="{% url 'password' %}">
+                <div>
+                    <p>Choose Length of Password</p>
+                    <select name="length">
+                        <option disabled value="Choose Length">Choose Length</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12" selected>12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                    </select>
+                </div>
 
-            <input type="submit" value="Generate Password">
-        </form>
+                <br>
+
+                <div>
+                    <label for="uppercase">
+                        <input type="checkbox" id="uppercase" name="uppercase">
+                        Uppercase
+                    </label>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="numbers">
+                        <input type="checkbox" id="numbers" name="numbers">
+                        Numbers
+                    </label>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="special_chars">
+                        <input type="checkbox" id="special_chars" name="special_chars">
+                        Special Chars
+                    </label>
+                </div>
+
+                <br>
+
+                <input type="submit" class="btn btn-primary" value="Generate Password">
+            </form>
+        </div>
     </body>
 </html>
