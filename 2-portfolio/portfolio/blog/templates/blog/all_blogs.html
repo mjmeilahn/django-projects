@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <h1>Blogs</h1>
+
+        <section>
+            {% for article in articles %}
+                <div>
+                    <h2>{{ article.title }}</h2>
+                    <p>{{ article.date }}</p>
+                    <p>{{ article.description }}</p>
+                </div>
+            {% endfor %}
+        </section>
+    </body>
+</html>
