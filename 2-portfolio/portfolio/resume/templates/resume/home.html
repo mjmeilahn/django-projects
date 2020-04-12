@@ -9,6 +9,10 @@
     <body>
         <h1>Hello World!</h1>
 
+        {% load static %}
+        <a href="{% static 'resume/110-ecommerce-optimizations.pdf' %}">View 110 E-Commerce Optimizations</a>
+        <img src="{% static 'resume/smiley.jpg' %}">
+
         <section>
             {% for project in projects %}
                 <div>
