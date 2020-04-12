@@ -1,32 +1,25 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        <h1>Blogs</h1>
+{% extends 'resume/base.html' %}
 
-        <h2>Total Article{{ article_count | pluralize }}: {{ article_count }}</h2>
+{% block content %}
+    <h1>Blogs</h1>
 
-        <section>
-            {% for article in articles %}
-                <div>
-                    <a href="{% url 'blog:detail' article.id %}">
-                        <h2>{{ article.title }}</h2>
-                    </a>
+    <h2>Total Article{{ article_count | pluralize }}: {{ article_count }}</h2>
 
-                    <!-- FILTERS REQUIRE NO WHITESPACE TO WORK -->
-                    <!-- UGLY LOOKING BUT REQUIRED -->
-                    <p>{{ article.date|date:'M d Y' }}</p>
+    <section>
+        {% for article in articles %}
+            <div>
+                <a href="{% url 'blog:detail' article.id %}">
+                    <h2>{{ article.title }}</h2>
+                </a>
 
-                    <!-- "|safe" ENABLES HTML ENTERED IN ADMIN -->
-                    <!-- "|striptags" REMOVES HTML FROM ADMIN -->
-                    <p>{{ article.description|safe|truncatechars:35 }}</p>
-                </div>
-            {% endfor %}
-        </section>
-    </body>
-</html>
+                <!-- FILTERS REQUIRE NO WHITESPACE TO WORK -->
+                <!-- UGLY LOOKING BUT REQUIRED -->
+                <p>{{ article.date|date:'M d Y' }}</p>
+
+                <!-- "|safe" ENABLES HTML ENTERED IN ADMIN -->
+                <!-- "|striptags" REMOVES HTML FROM ADMIN -->
+                <p>{{ article.description|safe|truncatechars:35 }}</p>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock %}
