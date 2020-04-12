@@ -6,3 +6,7 @@ class Article (models.Model):
     date = models.DateField()
     image = models.ImageField(upload_to='blog/images/')
     url = models.URLField(blank=True)
+
+    # DISPLAYS TITLE IN ADMIN
+    def __str__ (self):
+        return self.title

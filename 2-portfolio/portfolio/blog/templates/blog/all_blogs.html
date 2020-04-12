@@ -9,14 +9,22 @@
     <body>
         <h1>Blogs</h1>
 
+        <h2>Total Article{{ article_count | pluralize }}: {{ article_count }}</h2>
+
         <section>
             {% for article in articles %}
                 <div>
                     <a href="{% url 'blog:detail' article.id %}">
                         <h2>{{ article.title }}</h2>
                     </a>
-                    <p>{{ article.date }}</p>
-                    <p>{{ article.description }}</p>
+
+                    <!-- FILTERS REQUIRE NO WHITESPACE TO WORK -->
+                    <!-- UGLY LOOKING BUT REQUIRED -->
+                    <p>{{ article.date|date:'M d Y' }}</p>
+
+                    <!-- "|safe" ENABLES HTML ENTERED IN ADMIN -->
+                    <!-- "|striptags" REMOVES HTML FROM ADMIN -->
+                    <p>{{ article.description|safe|truncatechars:35 }}</p>
                 </div>
             {% endfor %}
         </section>

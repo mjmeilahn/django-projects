@@ -4,12 +4,16 @@ from .models import Article
 def all_blogs (request):
     # ORDER BY DATE, LAST 2 ARTICLES
     # LEARN HOW TO PAGINATE VIA LINKS
+    article_count = Article.objects.count
     articles = Article.objects.order_by('-date')[:2]
 
     # FETCH ALL ARTICLES
     # articles = Article.objects.all()
 
-    return render(request, 'blog/all_blogs.html', { 'articles': articles })
+    return render(request, 'blog/all_blogs.html', {
+        'articles': articles,
+        'article_count': article_count
+    })
 
 def detail (request, blog_id):
     # GET ARTICLE OR RETURN 404, "pk" IS PRIMARY KEY
