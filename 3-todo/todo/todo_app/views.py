@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth import login
+from django.db import IntegrityError
 
 def signup_user (request):
     if request.method == 'GET':
@@ -9,9 +11,25 @@ def signup_user (request):
         password = request.POST['password1']
 
         if password == request.POST['password2']:
-            user = User.objects.create_user(request.POST['username'], password=password)
+            try:
+                user = User.objects.create_user(request.POST['username'], password=password)
 
-            user.save()
+                # SAVE USER TO DB
+                user.save()
+
+                # LOG IN USER
+                login(request, user)
+
+                # REDIRECT TO DASHBOARD
+                return redirect('current_todos')
+
+            # SUBMITTED DATA ENCOUNTERS AN ERROR AGAINST DB RECORDS
+            except IntegrityError:
+                return render(request, 'todo/signup_user.html', { 'form': UserCreationForm(), 'error': 'That username has already been taken. Please choose another username.' })
+        # PASSWORDS DID NOT MATCH
         else:
-            # TELL USER TO MATCH PASSWORD
-            print('Please match passwords for new user')
+            return render(request, 'todo/signup_user.html', { 'form': UserCreationForm(), 'error': 'Passwords did not match' })
+
+
+def current_todos (request):
+    return render(request, 'todo/current_todos.html')
