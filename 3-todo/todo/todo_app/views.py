@@ -1,9 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.db import IntegrityError
 
+# HOME
+def home (request):
+    return render(request, 'todo/home.html')
+
+# SIGN UP
 def signup_user (request):
     if request.method == 'GET':
         return render(request, 'todo/signup_user.html', { 'form': UserCreationForm() })
@@ -30,6 +35,12 @@ def signup_user (request):
         else:
             return render(request, 'todo/signup_user.html', { 'form': UserCreationForm(), 'error': 'Passwords did not match' })
 
+# LOGOUT
+def logout_user (request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('home')
 
+# DASHBOARD
 def current_todos (request):
     return render(request, 'todo/current_todos.html')
