@@ -7,9 +7,23 @@
         <p>{{ message }}</p>
     {% endif %}
 
-    <form action="{% url 'todo' todo.id %}" method="POST">
+    <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save</button>
+    </form>
+
+    <br><br>
+
+    <form action="{% url 'complete_todo' todo.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Complete</button>
+    </form>
+
+    <br><br>
+
+    <form action="{% url 'delete_todo' todo.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
     </form>
 {% endblock %}
