@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
@@ -63,8 +63,18 @@ def current_todos (request):
 
 # VIEW TODO
 def todo (request, todo_pk):
-    
-    return render(request, 'todo.html')
+    todo = get_object_or_404(Todo, pk = todo_pk, user = request.user)
+
+    if request.method == 'GET':
+        form = TodoForm(instance = todo)
+        return render(request, 'todo/todo.html', { 'todo': todo, 'form': form })
+    elif request.method == 'POST':
+        try:
+            form = TodoForm(request.POST, instance = todo)
+            form.save()
+            return redirect('current_todos')
+        except (ValueError, IntegrityError):
+            return render(request, 'todo/todo.html', { 'todo': todo, 'form': form, 'message': 'Something went wrong. Please try again.' })
 
 # CREATE TODO
 def create_todo (request):

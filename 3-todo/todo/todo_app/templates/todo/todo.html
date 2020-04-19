@@ -1,5 +1,15 @@
 {% extends 'todo/base.html' %}
 
 {% block content %}
-    <h1>Todo</h1>
+    <h1>{{ todo.title }}</h1>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    <form action="{% url 'todo' todo.id %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
 {% endblock %}
